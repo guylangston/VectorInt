@@ -1,0 +1,69 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace VectorInt.Collections
+{
+    public class CartesianMap<T> : IReadOnlyCartesianMap<T>
+    {
+        public CartesianMap(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            Size = new VectorInt2(width, height);
+            inner = new T[width,height];
+        }
+
+        public CartesianMap(IReadOnlyCartesianMap<T> shallowCopy)
+        {
+            inner = new T[shallowCopy.Width, shallowCopy.Height];
+            foreach (var (x, y, v) in shallowCopy)
+            {
+                inner[x, y] = v;
+            }
+        }
+
+        private readonly T[,] inner;
+        
+        public int Width { get; }
+
+        public int Height { get; }
+
+        public VectorInt2 Size { get; }
+
+        public T this[int x, int y]
+        {
+            get => inner[x, y];
+            set => inner[x, y] = value;
+        }
+
+        public T this[VectorInt2 p] 
+        {
+            get => inner[p.X, p.Y];
+            set => inner[p.X, p.Y] = value;
+        }
+
+        public IEnumerable<(VectorInt2 p, T v)> ForeachByVector()
+        {
+            for (var xx = 0; xx < Width; xx++)
+                for (var yy = 0; yy < Height; yy++)
+                    yield return (new VectorInt2(xx, yy), inner[xx, yy]);
+            
+        }
+
+        public IEnumerable<T> ForeachValue()
+        {
+            for (var xx = 0; xx < Width; xx++)
+                for (var yy = 0; yy < Height; yy++)
+                    yield return inner[xx, yy];
+        }
+
+        public IEnumerator<(int x, int y, T value)> GetEnumerator()
+        {
+            for (var xx = 0; xx < Width; xx++)
+                for (var yy = 0; yy < Height; yy++)
+                   yield return (xx, yy, inner[xx, yy]);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+}

@@ -9,6 +9,12 @@ namespace VectorInt
             X = x;
             Y = y;
         }
+        
+        public VectorInt2(int scalar) : this()
+        {
+            X = scalar;
+            Y = scalar;
+        }
 
         public void Deconstruct(out int x, out int y)
         {
@@ -22,13 +28,15 @@ namespace VectorInt
 
         public bool IsUnit => this == Up || this == Down || this == Left || this == Right;
 
-        public static readonly VectorInt2 Zero = new VectorInt2();
-
-        public static readonly VectorInt2 MinValue = new VectorInt2(int.MinValue, int.MinValue);
-        public static readonly VectorInt2 Up = new VectorInt2(0, -1);
-        public static readonly VectorInt2 Down = new VectorInt2(0, 1);
-        public static readonly VectorInt2 Left = new VectorInt2(-1, 0);
-        public static readonly VectorInt2 Right = new VectorInt2(1, 0);
+        public static readonly VectorInt2 Zero = new VectorInt2(0);
+        public static readonly VectorInt2 Unit = new VectorInt2(1);
+        public static readonly VectorInt2 MinValue = new VectorInt2(int.MinValue);
+        public static readonly VectorInt2 MaxValue = new VectorInt2(int.MaxValue);
+        
+        public static readonly VectorInt2 Up     = new VectorInt2(0, -1);
+        public static readonly VectorInt2 Down   = new VectorInt2(0, 1);
+        public static readonly VectorInt2 Left   = new VectorInt2(-1, 0);
+        public static readonly VectorInt2 Right  = new VectorInt2(1, 0);
         public static readonly VectorInt2[] Directions = {Up, Down, Left, Right};
 
         public static VectorInt2 operator +(VectorInt2 lhs, VectorInt2 rhs) => new VectorInt2(lhs.X + rhs.X, lhs.Y + rhs.Y);
