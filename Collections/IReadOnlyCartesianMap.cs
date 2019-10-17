@@ -2,7 +2,7 @@
 
 namespace VectorInt.Collections
 {
-    public interface IReadOnlyCartesianMap<T> : IEnumerable<(int x, int y, T value)>
+    public interface IReadOnlyCartesianMap<T> : IEnumerable<(VectorInt2 Position, T Value)>
     {
         int Width { get; }
         int Height { get; }
@@ -10,8 +10,7 @@ namespace VectorInt.Collections
         
         T this[int x, int y] { get; }
         T this[VectorInt2 p] { get; }
-
-        IEnumerable<(VectorInt2 p, T v)> ForeachByVector();
-        IEnumerable<T> ForeachValue();
+        
+        IEnumerable<T> ForEachValue();
     }
 }

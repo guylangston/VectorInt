@@ -8,12 +8,15 @@ namespace VectorInt.Collections
     {
         private readonly Dictionary<VectorInt2, T> inner = new Dictionary<VectorInt2, T>();
 
+        // As this is space, it must be in the dictionary
+        public bool Contains(VectorInt2 p) => inner.ContainsKey(p);
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        public IEnumerator<(int x, int y, T value)> GetEnumerator()
+        public IEnumerator<(VectorInt2 Position, T Value)> GetEnumerator()
         { 
             foreach (var kv in inner)
             {
-                yield return (kv.Key.X, kv.Key.Y, kv.Value);
+                yield return (kv.Key, kv.Value);
             }
         }
 
@@ -46,14 +49,6 @@ namespace VectorInt.Collections
             }
         }
 
-        public IEnumerable<(VectorInt2 p, T v)> ForeachByVector()
-        {
-            foreach (var kv in inner)
-            {
-                yield return (kv.Key, kv.Value);
-            }
-        }
-
-        public IEnumerable<T> ForeachValue() => inner.Values;
+        public IEnumerable<T> ForEachValue() => inner.Values;
     }
 }

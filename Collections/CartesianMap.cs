@@ -15,10 +15,13 @@ namespace VectorInt.Collections
 
         public CartesianMap(IReadOnlyCartesianMap<T> shallowCopy)
         {
+            Width = shallowCopy.Width;
+            Height = shallowCopy.Height;
+            Size = shallowCopy.Size;
             inner = new T[shallowCopy.Width, shallowCopy.Height];
-            foreach (var (x, y, v) in shallowCopy)
+            foreach (var (p, v) in shallowCopy)
             {
-                inner[x, y] = v;
+                inner[p.X, p.Y] = v;
             }
         }
 
@@ -42,26 +45,18 @@ namespace VectorInt.Collections
             set => inner[p.X, p.Y] = value;
         }
 
-        public IEnumerable<(VectorInt2 p, T v)> ForeachByVector()
-        {
-            for (var xx = 0; xx < Width; xx++)
-                for (var yy = 0; yy < Height; yy++)
-                    yield return (new VectorInt2(xx, yy), inner[xx, yy]);
-            
-        }
-
-        public IEnumerable<T> ForeachValue()
+        public IEnumerable<T> ForEachValue()
         {
             for (var xx = 0; xx < Width; xx++)
                 for (var yy = 0; yy < Height; yy++)
                     yield return inner[xx, yy];
         }
 
-        public IEnumerator<(int x, int y, T value)> GetEnumerator()
+        public IEnumerator<(VectorInt2 Position, T Value)> GetEnumerator()
         {
             for (var xx = 0; xx < Width; xx++)
                 for (var yy = 0; yy < Height; yy++)
-                   yield return (xx, yy, inner[xx, yy]);
+                   yield return (new VectorInt2(xx, yy), inner[xx, yy]);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
