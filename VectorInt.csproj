@@ -3,18 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Trival, non-dependancy VectorInt mirroring System.Numerics.Vector2</Description>
-    <Authors>Guy Langston</Authors>
-    <PackageProjectUrl>https://github.com/guylangston/VectorInt</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/guylangston/VectorInt</RepositoryUrl>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <FileVersion>0.1.0.0</FileVersion>
-    
-    <Copyright>MIT</Copyright>
-    <Version>0.0.1</Version>
-    <PackageReleaseNotes>Alpha-stage</PackageReleaseNotes>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+<!--    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+<!--    <Description>Trival, non-dependancy VectorInt mirroring System.Numerics.Vector2</Description>-->
+<!--    <Authors>Guy Langston</Authors>-->
+<!--    <PackageProjectUrl>https://github.com/guylangston/VectorInt</PackageProjectUrl>-->
+<!--    <RepositoryUrl>https://github.com/guylangston/VectorInt</RepositoryUrl>-->
+<!--    <AssemblyVersion>0.1.0.0</AssemblyVersion>-->
+<!--    <FileVersion>0.1.0.0</FileVersion>-->
+<!--    <Copyright>MIT</Copyright>-->
+<!--    <Version>0.0.1</Version>-->
+<!--    <PackageReleaseNotes>Alpha-stage</PackageReleaseNotes>-->
+<!--    <PackageLicenseExpression>MIT</PackageLicenseExpression>-->
 
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace VectorInt
 {
@@ -10,6 +11,11 @@ namespace VectorInt
         int Y { get; set; }
         int W { get; set; }
         int H { get; set; }
+        
+        int X2 { get; }
+        int Y2 { get; }
+        int XC { get; }
+        int YC { get; }
 
         // Top
         VectorInt2 TL { get; }
@@ -25,6 +31,9 @@ namespace VectorInt
         VectorInt2 BL { get; }
         VectorInt2 BM { get; }
         VectorInt2 BR { get; }
+        
+        // Logic
+        bool Contains(VectorInt2 p);
     }
 
     public class RectInt : IRectInt
@@ -49,22 +58,36 @@ namespace VectorInt
         public int Y { get; set; }
         public int W { get; set; }
         public int H { get; set; }
+
+        public int X2 => X + W - 1;
+        public int Y2 => Y + H - 1;
+        
+        public int XC => X + (W - 1) / 2;
+        public int YC => Y + (H - 1) / 2;
         
         public VectorInt2 Size => new VectorInt2(W, H);
         
-        public VectorInt2 TL => (X, Y);
-        public VectorInt2 TM => (X + W/2, Y);
-        public VectorInt2 TR => (X + W, Y);
+        public VectorInt2 TL => (X,  Y);
+        public VectorInt2 TM => (XC, Y);
+        public VectorInt2 TR => (X2, Y);
         
-        public VectorInt2 ML => (X, Y + H/2);
-        public VectorInt2 C  => (X + W/2, Y + H/2);
-        public VectorInt2 MR => (X + W, Y + H/2);
+        public VectorInt2 ML => (X,  YC);
+        public VectorInt2 C  => (XC, YC);
+        public VectorInt2 MR => (X2, YC);
         
-        public VectorInt2 BL => (X, Y + H);
-        public VectorInt2 BM => (X + W/2, Y + H);
-        public VectorInt2 BR => (X + W, Y + H);
-        
-        
+        public VectorInt2 BL => (X,  Y2);
+        public VectorInt2 BM => (XC, Y2);
+        public VectorInt2 BR => (X2, Y2);
+
+
+        public override string ToString() => $"({X}, {Y}, {X2}, {Y2} [W:{W}, H:{H}])";
+
+
+        public bool Contains(VectorInt2 p) =>
+            p.X >= X && p.X <= X2 &&
+            p.Y >= Y && p.Y <= Y2;
+
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public IEnumerator<VectorInt2> GetEnumerator()
         {
@@ -77,6 +100,13 @@ namespace VectorInt
         {
             var half = rect.Size / new VectorInt2(2, 2);
             return new RectInt(at.X - half.X, at.Y - half.Y, rect.W, rect.H);
+        }
+
+        public IEnumerable<(VectorInt2 inner, VectorInt2 outer)> InnerVsOuter()
+        {
+            for (var xx = X; xx < X + W; xx++)
+            for (var yy = Y; yy < Y + H; yy++)
+                yield return (new VectorInt2(xx-X, yy-Y), new VectorInt2(xx, yy) );
         }
     }
 }
