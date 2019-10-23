@@ -27,6 +27,7 @@ namespace VectorInt
         public int Y { get; set; }
 
         public bool IsUnit => this == Up || this == Down || this == Left || this == Right;
+        public bool IsZero => X == 0 && Y == 0;
 
         public static readonly VectorInt2 Zero = new VectorInt2(0);
         public static readonly VectorInt2 Unit = new VectorInt2(1);
