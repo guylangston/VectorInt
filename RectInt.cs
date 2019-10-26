@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
@@ -45,6 +46,14 @@ namespace VectorInt
             W = w;
             H = h;
         }
+        
+        public RectInt(VectorInt2 pos, VectorInt2 size)
+        {
+            X = pos.X;
+            Y = pos.Y;
+            W = size.X;
+            H = size.Y;
+        }
 
         public RectInt(VectorInt2 size)
         {
@@ -53,6 +62,18 @@ namespace VectorInt
             W = size.X;
             H = size.Y;
         }
+
+        public static RectInt FromTwoPoints(VectorInt2 a, VectorInt2 b)
+        {
+            var x = Math.Min(a.X, b.X);
+            var y = Math.Min(a.Y, b.Y);
+            var x2 = Math.Max(a.X, b.X);
+            var y2 = Math.Max(a.Y, b.Y);
+            
+            return new RectInt(x, y, x2-x, y2 - y);
+            
+        }
+        
 
         public int X { get; set; }
         public int Y { get; set; }
@@ -108,5 +129,7 @@ namespace VectorInt
             for (var yy = Y; yy < Y + H; yy++)
                 yield return (new VectorInt2(xx-X, yy-Y), new VectorInt2(xx, yy) );
         }
+
+        public IRectInt Move(VectorInt2 offset) => new RectInt(TL + offset, Size);
     }
 }
