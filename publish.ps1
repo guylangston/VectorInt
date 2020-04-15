@@ -3,20 +3,26 @@ param(
     )
 $name = "VectorInt"
 
-ls "C:\Projects\LocalNuGet\*$name"
-
-if ($ver -eq ""){
-    $ver = Read-Host -Prompt 'Version as "0.1.6"'
+if ([string]::IsNullOrEmpty($ver))
+{
+    $ver = Get-Content ./package-version.txt
 }
 
-pushd
+echo "Package: '$name'"
+echo "Package-Version: '$ver'"
 
-dotnet build -c Release
-dotnet pack -c Release "-p:PackageVersion=$ver"
+$confirmation = Read-Host "Does the version look correct? y/n"
+if ($confirmation -eq 'y') {
+    pushd
+    
+    dotnet build -c Release --no-incremental "-p:PackageVersion=$ver"
+    dotnet pack -c Release "-p:PackageVersion=$ver"
+    
+    
+    copy ".\bin\Release\$name.$ver.nupkg"  "C:\Projects\LocalNuGet\$name.$ver.nupkg"
+    
+    echo " ==> C:\Projects\LocalNuGet\$name.$ver.nupkg"
+    
+    popd
+}
 
-
-copy ".\bin\Release\$name.$ver.nupkg"  "C:\Projects\LocalNuGet\$name.$ver.nupkg"
-
-ls "C:\Projects\LocalNuGet\*$name"
-
-popd

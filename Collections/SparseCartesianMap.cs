@@ -20,9 +20,9 @@ namespace VectorInt.Collections
             }
         }
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public VectorInt2 Size => new VectorInt2(Width, Height);
+        public int        Width  { get; private set; }
+        public int        Height { get; private set; }
+        public VectorInt2 Size   => new VectorInt2(Width, Height);
 
         public T this[int x, int y]
         {

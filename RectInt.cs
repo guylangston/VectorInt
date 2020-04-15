@@ -122,6 +122,12 @@ namespace VectorInt
             var half = rect.Size / new VectorInt2(2, 2);
             return new RectInt(at.X - half.X, at.Y - half.Y, rect.W, rect.H);
         }
+        
+        public static RectInt CenterAt(VectorInt2 at, VectorInt2 size)
+        {
+            var half = new VectorInt2(size.X / 2, size.Y / 2);
+            return new RectInt(at.X - half.X, at.Y - half.Y, size.X, size.Y);
+        }
 
         public IEnumerable<(VectorInt2 inner, VectorInt2 outer)> InnerVsOuter()
         {

@@ -13,4 +13,10 @@ namespace VectorInt.Collections
         
         IEnumerable<T> ForEachValue();
     }
+    
+    public interface ICartesianMap<T> : IReadOnlyCartesianMap<T>
+    {
+        new T this[int x, int y] { get; set; }
+        new T this[VectorInt2 p] { get; set; }
+    }
 }
