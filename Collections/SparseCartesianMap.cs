@@ -11,8 +11,8 @@ namespace VectorInt.Collections
         // As this is space, it must be in the dictionary
         public bool Contains(VectorInt2 p) => inner.ContainsKey(p);
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        public IEnumerator<(VectorInt2 Position, T Value)> GetEnumerator()
+        
+        public IEnumerable<(VectorInt2 Position, T Value)> ForEach()
         { 
             foreach (var kv in inner)
             {

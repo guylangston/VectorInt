@@ -18,7 +18,7 @@ namespace VectorInt.Collections
             return true;
         }
         
-        public static int Count<T>(this IReadOnlyCartesianMap<T> map, T instance) => Enumerable.Count(map, x => object.Equals(instance, x.Value));
+        public static int Count<T>(this IReadOnlyCartesianMap<T> map, T instance) => Enumerable.Count(map.ForEach(), x => object.Equals(instance, x.Value));
 
         // This is just what LINQ does?
 //        public static  int Count<T>(IReadOnlyCartesianMap<T> map, T items)

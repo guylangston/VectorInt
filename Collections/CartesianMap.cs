@@ -19,7 +19,7 @@ namespace VectorInt.Collections
             Height = shallowCopy.Height;
             Size = shallowCopy.Size;
             inner = new T[shallowCopy.Width, shallowCopy.Height];
-            foreach (var (p, v) in shallowCopy)
+            foreach (var (p, v) in shallowCopy.ForEach())
             {
                 inner[p.X, p.Y] = v;
             }
@@ -52,13 +52,13 @@ namespace VectorInt.Collections
                     yield return inner[xx, yy];
         }
 
-        public IEnumerator<(VectorInt2 Position, T Value)> GetEnumerator()
+        public IEnumerable<(VectorInt2 Position, T Value)> ForEach()
         {
             for (var xx = 0; xx < Width; xx++)
                 for (var yy = 0; yy < Height; yy++)
                    yield return (new VectorInt2(xx, yy), inner[xx, yy]);
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        
     }
 }
