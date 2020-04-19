@@ -3,7 +3,13 @@ using System.Numerics;
 
 namespace VectorInt
 {
-    public struct VectorInt2 : IEquatable<VectorInt2>
+    public interface IVector2<T> : IEquatable<IVector2<T>>
+    {
+        public T X { get;  }
+        public T Y { get;  }
+    }
+    
+    public struct VectorInt2 : IVector2<int>, IEquatable<VectorInt2>
     {
 
         public VectorInt2(Vector2 v) : this()
@@ -68,6 +74,9 @@ namespace VectorInt
         public static implicit operator VectorInt2(Vector2 v) => new VectorInt2((int)v.X, (int)v.Y);
         
         public bool Equals(VectorInt2 other) => X == other.X && Y == other.Y;
+        public bool Equals(IVector2<int> other) => X == other.X && Y == other.Y;
+
+        
 
         public override bool Equals(object obj) => Equals((VectorInt2) obj);
 
